@@ -3,7 +3,7 @@ FROM php:8.2-apache
 # Instalar extensiones PHP necesarias
 RUN docker-php-ext-install mysqli pdo pdo_mysql
 
-# Habilitar mod_rewrite para Apache
+# Habilitar mod_rewrite para Apache (necesario para URLs amigables)
 RUN a2enmod rewrite
 
 # Establecer directorio de trabajo
