@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    container_name: spring_php
+    ports:
+      - "8080:80"
+    volumes:
+      - ./src/main/resources/templates:/var/www/html
+    depends_on:
+      - db
+    environment:
+      - MYSQL_HOST=db
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=password
+      - MYSQL_DB=spring_auth
+    networks:
+      - spring_network
+
+  db:
+    image: mysql:8.0
+    container_name: spring_mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_DATABASE: spring_auth
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./database/spring_auth.sql:/docker-entrypoint-initdb.d/spring_auth.sql
+    networks:
+      - spring_network
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: spring_phpmyadmin
+    ports:
+      - "8081:80"
+    environment:
+      - PMA_HOST=db
+      - PMA_PORT=3306
+    depends_on:
+      - db
+    networks:
+      - spring_network
+
+networks:
+  spring_network:
+    driver: bridge
+
+volumes:
+  mysql_data:
