@@ -14,7 +14,7 @@ Este proyecto contiene una aplicación web PHP conectada a MySQL, usando Docker 
 
 ### 1. Clona el proyecto y ubícate en la carpeta:
 ```bash
-git clone <tu-repo>
+git clone (https://github.com/MXYSL/Ingeneria-de-Sofware-6CV3/tree/main/Practica%202)
 cd Practica\ 2
 ```
 
