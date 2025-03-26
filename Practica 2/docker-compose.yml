@@ -28,7 +28,7 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - ./templates:/var/www/html   # Corregido para apuntar a la carpeta templates
+      - ./archivos:/var/www/html   # Corregido para apuntar a la carpeta archivos
       - mysql_data:/var/lib/mysql
       - ./database/spring_auth.sql:/docker-entrypoint-initdb.d/spring_auth.sql
     networks:
