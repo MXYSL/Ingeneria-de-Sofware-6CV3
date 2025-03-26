@@ -1,0 +1,197 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+.header9 {
+    background-color: #ddd6bd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 50px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    gap: 2rem;
+}
+
+.logo9 img {
+    height: 50px;
+}
+
+.nav9 {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.search-container9 {
+    display: flex;
+    gap: 10px;
+    width: 50%;
+}
+
+.search-container9 input {
+    flex-grow: 1;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.search-container9 button {
+    padding: 8px 15px;
+    background-color: #000000;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.nav-links9 {
+    display: flex;
+    gap: 1.5rem;
+  }
+
+  .nav-links9 a{
+    text-decoration: none;
+    color: #000000;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: color 0.3s ease;
+  }
+
+  .nav-links9 a:hover{
+    color: #d21c1c;
+  }
+
+.footer9 {
+    background-color: #ddd6bd;
+    color: rgb(0, 0, 0);
+    text-align: center;
+    padding: 15px;
+}
+
+.main10 {
+    padding: 20px;
+}
+
+/* Sección de Categorías */
+.category-section10 {
+    margin-bottom: 30px;
+}
+
+.category-title10 {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* Carrusel */
+.carousel10 {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.carousel-container10 {
+    display: flex;
+    gap: 15px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding-bottom: 10px;
+}
+
+.carousel-container10::-webkit-scrollbar {
+    display: none;
+}
+
+.carousel-btn10 {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 10px;
+}
+
+.left10 {
+    position: absolute;
+    left: -10px;
+}
+
+.right10 {
+    position: absolute;
+    right: -10px;
+}
+
+/* Libros */
+.book10 {
+    width: 150px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.book10 img {
+    width: 100%;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease-in-out;
+}
+
+.book10 img:hover {
+    transform: scale(1.05);
+}
+
+.book-title10 {
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+.book-author10 {
+    font-size: 12px;
+}
+
+/* Segunda sección (sin carrusel) */
+.book-grid10 {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.theme-button10 {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+}
+
+.theme-button10 img {
+    width: 80px;
+    height: 40px;
+    transition: transform 0.7s ease-in-out;
+}
+
+.theme-button10 img:hover {
+    transform: scale(1.1);
+}
+
+/* Modo Oscuro */
+.dark-mode10 {
+    background-color: #363434;
+    color: #ffffff;
+}
+
+/*
+.dark-mode10 p {
+    color: #d21c1c;
+}
+*/
+
+.welcome-message {
+    margin-bottom: 2rem;
+    font-size: 20px;
+    font-weight: bold;
+}
