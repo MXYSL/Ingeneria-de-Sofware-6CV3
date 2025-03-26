@@ -1,0 +1,10 @@
+{
+
+        "require": {
+            "facebook/php-business-sdk": "^8.0.3",
+            "google/apiclient": "^2.18",
+            "guzzlehttp/guzzle": "^7.9",
+                "facebook/graph-sdk": "^5.1"
+        }
+    
+}

@@ -1,0 +1,250 @@
+/* Estilos generales */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: #ffffff;
+    color: #000000;
+    height: 700px;
+}
+
+.container {
+    display: flex;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+/* Panel izquierdo con la imagen de fondo */
+.left-panel {
+    flex: 1;
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                url('https://images.unsplash.com/photo-1481627834876-b7833e8f5570?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+    background-size: cover;
+    background-position: center;
+    color: white;
+    padding: 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 300px;
+    height: 835px;
+}
+
+.left-panel h1 {
+    font-size: 5.5rem;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+    text-align: center;
+    color: #b3b3b3;
+}
+
+.left-panel p {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    line-height: 1.5;
+    max-width: 100%;
+    opacity: 0.9;
+    color: #b3b3b3;
+}
+
+.social-media {
+    display: flex;
+    gap: 1rem;
+    margin-top: auto;
+}
+
+.social-media a {
+    color: white;
+    background-color: rgba(104, 99, 99, 0.53);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.social-media a:hover {
+    background-color: rgba(198, 27, 27, 0.832);
+    transform: translateY(-3px);
+}
+
+/* Panel derecho con el formulario */
+.right-panel {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    background-color: #98959582;
+    height: 835px;
+}
+
+.form-container {
+    width: 100%;
+    max-width: 400px;
+    padding: 1rem;
+}
+
+.form-container h2 {
+    font-size: 1.75rem;
+    margin-bottom: 1.5rem;
+    color: #000000;
+    text-align: center;
+}
+
+.input-group {
+    margin-bottom: 1.25rem;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #000000;
+    font-size: 0.9rem;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px transparent;
+    background-color: #98959582;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    transition: border 0.3s ease;
+}
+
+.input-group input:focus {
+    border-color: #8a7b33;
+    outline: none;
+}
+
+.remember-me {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+}
+
+.remember-me input {
+    margin-right: 0.5rem;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #c8b86f;
+    color: rgb(14, 13, 13);
+    border: none;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.submit-btn:hover {
+    background-color: #3e3319;
+    color: #ddd;
+    transform: scale(0.85);
+}
+
+.forgot-password {
+    text-align: center;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+}
+
+.forgot-password a, 
+.login-link a {
+    color: #232221;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.forgot-password a:hover, 
+.login-link a:hover {
+    text-decoration: underline;
+}
+
+.login-link {
+    text-align: center;
+    margin-top: 1.5rem;
+    font-size: 0.9rem;
+}
+
+.social-login button {
+    margin-top: 20px;
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.2s;
+}
+
+.social-login button:hover{
+    background-color: #524d4d;
+    transform: scale(0.85);
+}
+
+.google {
+    background-color: #db4437;
+    color: white;
+}
+
+.facebook {
+    background-color: #3b5998;
+    color: white;
+}
+
+.password-container {
+    position: relative;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    opacity: 0.7;
+    transition: opacity 0.3s;
+}
+.toggle-password:hover {
+    opacity: 1;
+}
+
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+    
+    .left-panel {
+        padding: 2rem;
+    }
+    
+    .left-panel p {
+        max-width: 100%;
+    }
+    
+    .left-panel h1 {
+        font-size: 2.5rem;
+    }
+}
