@@ -1,13 +1,23 @@
 FROM php:8.2-apache
 
 # Instalar extensiones PHP necesarias
-RUN docker-php-ext-install mysqli pdo pdo_mysql
+RUN apt-get update && apt-get install -y \
+    libzip-dev \
+    unzip \
+    git
+
+# Instalar extensiones PHP y Composer
+RUN docker-php-ext-install mysqli pdo pdo_mysql zip
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 # Habilitar mod_rewrite para Apache (necesario para URLs amigables)
 RUN a2enmod rewrite
 
 # Establecer directorio de trabajo
 WORKDIR /var/www/html
+
+# Copiar archivos de la aplicación
+COPY ./archivos /var/www/html/
 
 # Configurar Apache para permitir .htaccess
 RUN sed -i '/<Directory \/var\/www\/>/,/<\/Directory>/ s/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf
@@ -17,3 +27,10 @@ RUN chown -R www-data:www-data /var/www/html
 
 # Exponer puerto 80
 EXPOSE 80
+
+# Script para esperar a que MySQL esté disponible
+COPY ./wait-for-mysql.sh /usr/local/bin/wait-for-mysql.sh
+RUN chmod +x /usr/local/bin/wait-for-mysql.sh
+
+# Comando para iniciar el servidor Apache
+CMD ["apache2-foreground"]
