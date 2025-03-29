@@ -1,3 +1,4 @@
+
 version: '3.8'
 
 services:
@@ -8,6 +9,11 @@ services:
       - "8080:80"
     depends_on:
       - db
+    volumes:
+      - ./archivos:/var/www/html
+      - ./composer.json:/var/www/composer.json
+      - ./composer.lock:/var/www/composer.lock
+      - ./vendor:/var/www/vendor
     environment:
       - MYSQL_HOST=db
       - MYSQL_USER=user
@@ -15,6 +21,7 @@ services:
       - MYSQL_DB=spring_auth
     networks:
       - spring_network
+    command: ["/usr/local/bin/wait-for-mysql.sh", "db", "apache2-foreground"]
 
   db:
     image: mysql:8.0
@@ -28,7 +35,6 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - ./archivos:/var/www/html   # Corregido para apuntar a la carpeta archivos
       - mysql_data:/var/lib/mysql
       - ./database/spring_auth.sql:/docker-entrypoint-initdb.d/spring_auth.sql
     networks:
@@ -38,7 +44,7 @@ services:
     image: phpmyadmin/phpmyadmin
     container_name: spring_phpmyadmin
     ports:
-      - "8081:80"    # Restaurado al puerto original
+      - "8081:80"
     environment:
       - PMA_HOST=db
       - PMA_PORT=3306
