@@ -1,4 +1,3 @@
-
 <?php
 // Configuración de la base de datos usando variables de entorno de Docker
 $servername = getenv('MYSQL_HOST') ?: 'localhost';

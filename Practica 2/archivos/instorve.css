@@ -1,4 +1,4 @@
-body {
+.body10 {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
@@ -336,14 +336,17 @@ body {
 .content-item-horizontal {
     flex: 0 0 auto;
     text-align: center;
-    width: 100px;
+    width: 220px; /* Ancho de la portada */
     position: relative; /* Para posicionar los botones sobre la imagen */
     margin: 0 10px; /* Espaciado entre libros */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .content-item-horizontal img {
-    height: 250px;
-    width: 200px;
+    height: 250px; /* Alto de la portada */
+    width: 220px; /* Ancho de la portada */
     object-fit: cover;
     border-radius: 5px;
     margin-bottom: 5px;
@@ -351,16 +354,18 @@ body {
 }
 
 .content-item-horizontal img:hover {
-    transform: scale(1.2); /* Efecto de zoom al pasar el mouse */
+    transform: scale(1.1); /* Efecto de zoom al pasar el mouse */
 }
 
 .content-item-horizontal p {
-    font-size: 12px;
+    font-size: 14px;
     font-weight: bold;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis; /* Truncar texto con puntos suspensivos */
     margin: 5px 0;
+    max-width: 200px; /* Limitar el ancho del texto */
+    text-align: center;
 }
 
 .content-item-horizontal .buttons-overlay {
@@ -417,4 +422,66 @@ body {
     .content-item-horizontal {
         width: 100px;
     }
+}
+
+/* Estilo para el contenedor de favoritos */
+#favorites-section {
+    position: relative;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+/* Estilo para el encabezado de favoritos */
+.favorites-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+/* Botón para cerrar favoritos */
+.close-favorites-button {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #333;
+}
+
+.close-favorites-button:hover {
+    color: #ff0000;
+}
+
+/* Estilo para los elementos de favoritos */
+.content-item-horizontal {
+    flex: 0 0 auto;
+    width: 150px;
+    text-align: center;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #fff;
+    margin-right: 10px;
+}
+
+.content-item-horizontal img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+.remove-favorite-button {
+    background-color: #ff0000;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.remove-favorite-button:hover {
+    background-color: #cc0000;
 }
