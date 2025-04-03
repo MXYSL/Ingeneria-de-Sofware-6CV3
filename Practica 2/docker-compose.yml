@@ -21,7 +21,7 @@ services:
       - MYSQL_DB=spring_auth
     networks:
       - spring_network
-    command: ["/usr/local/bin/wait-for-mysql.sh", "db", "apache2-foreground"]
+    command: ["apache2-foreground"]
 
   db:
     image: mysql:8.0
