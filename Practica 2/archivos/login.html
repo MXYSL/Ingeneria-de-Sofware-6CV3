@@ -21,7 +21,7 @@
         <div class="right-panel">
             <div class="form-container">
                     <h2>Iniciar sesión</h2>
-                    <form action="auth_process.php" method="POST">
+                    <form action="auth.php" method="POST">
                         <input type="hidden" name="action" value="login">
                         <div class="input-group">
                             <label for="username">Usuario</label>
@@ -45,8 +45,8 @@
                     </form>
                     <div class="social-login">
                         <br><p>O inicia sesión con:</p>
-                        <button class="google" onclick="window.location.href='auth_google.php'"><i class="fab fa-google"></i>  Google</button>
-                        <button class="facebook" onclick="window.location.href='auth_facebook.php'"><i class="fab fa-facebook-f"></i>  Facebook</button>
+                        <button class="google" onclick="window.location.href='auth.php?provider=google'"><i class="fab fa-google"></i>  Google</button>
+                        <button class="facebook" onclick="window.location.href='auth.php?provider=facebook'"><i class="fab fa-facebook-f"></i>  Facebook</button>
                     </div>
                     <div class="login-link">
                         <p>¿No tienes cuenta? <a href="registro.html">Regístrate aquí</a></p>

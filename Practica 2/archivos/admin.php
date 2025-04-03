@@ -6,7 +6,7 @@ if (!isset($_SESSION['user_id'])) {
     header("Location: ../index.html");
     exit();
 }
-
+ 
 // Verificar permisos de administrador
 function verificarAdmin() {
     if (!isset($_SESSION['user_id']) || $_SESSION['role_id'] != 1) {
@@ -189,7 +189,7 @@ $usuarios = obtenerTodosLosUsuarios($conn);
 // Obtener preferencia de tema
 $tema_preferido = $_SESSION['tema'] ?? 'sistema';
 ?>
-
+ 
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -221,7 +221,7 @@ $tema_preferido = $_SESSION['tema'] ?? 'sistema';
                     </button>
                 </div>
                 <div>
-                    <a href="perfil.php" class="btn btn-danger">Perfil</a>
+                    <a href="personal.php" class="btn btn-danger">Perfil</a>
                     <a href="instorve.php" class="btn btn-danger">Regresar</a>
                     <a href="logout.php" class="btn btn-danger">Cerrar Sesión</a>
                 </div>
