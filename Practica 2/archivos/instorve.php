@@ -4,7 +4,7 @@ require_once 'conexion.php';
 
 // Si no hay sesión activa, redirigir al login
 if (!isset($_SESSION['user_id'])) {
-    header("Location: ../index.html");
+    header("Location: index.html");
     exit();
 }
 
