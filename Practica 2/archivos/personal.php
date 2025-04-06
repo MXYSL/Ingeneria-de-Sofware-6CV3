@@ -48,16 +48,31 @@ if (isset($_POST['action']) && $_POST['action'] == 'update_image' && isset($_FIL
         $imagen_nombre = basename($_FILES['imagen']['name']);
         $ruta = $dir . $imagen_nombre;
 
-        if (move_uploaded_file($_FILES['imagen']['tmp_name'], $ruta)) {
-            $stmt = $conn->prepare("UPDATE users SET imagen=? WHERE id=?");
-            $stmt->bind_param("si", $imagen_nombre, $user_id);
-            $stmt->execute();
-            
-            // Actualizar la variable de imagen para mostrarla sin recargar
-            $imagen = $imagen_nombre;
-        } else {
-            $error_msg = "Error al subir imagen.";
+        if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK) {
+            $file_tmp = $_FILES['imagen']['tmp_name'];
+            $file_name = $_FILES['imagen']['name'];
+            $file_ext = pathinfo($file_name, PATHINFO_EXTENSION);
+        
+            // Validar extensión
+            $allowed_ext = ['jpg', 'jpeg', 'png', 'gif'];
+            if (in_array(strtolower($file_ext), $allowed_ext)) {
+                $new_file_name = uniqid('img_') . "." . $file_ext;
+                $target_path = "uploads/" . $new_file_name;
+        
+                if (move_uploaded_file($file_tmp, $target_path)) {
+                    // Guardar ruta en la base de datos
+                    $stmt = $conn->prepare("UPDATE users SET imagen = ? WHERE email = ?");
+                    $stmt->bind_param("ss", $target_path, $email);
+                    $stmt->execute();
+                    $stmt->close();
+                } else {
+                    echo "Error al subir la imagen.";
+                }
+            } else {
+                echo "Tipo de archivo no permitido.";
+            }
         }
+        
     } else {
         $error_msg = "Error en la carga de la imagen.";
     }
@@ -65,16 +80,29 @@ if (isset($_POST['action']) && $_POST['action'] == 'update_image' && isset($_FIL
 
 // Procesar eliminación de imagen
 if (isset($_POST['action']) && $_POST['action'] == 'delete_image') {
+    echo "Action: delete_image - Imagen: " . htmlspecialchars($imagen); // Depurar imagen
     if ($imagen) {
         $ruta_imagen = "uploads/" . $imagen;
         if (file_exists($ruta_imagen)) {
-            unlink($ruta_imagen);
+            if (unlink($ruta_imagen)) {
+                echo "Imagen eliminada del servidor."; // Confirmación si se eliminó
+            } else {
+                echo " "; // Si no se puede eliminar
+            }
+        } else {
+            echo " "; // Si no existe el archivo
         }
 
-        $stmt = $conn->prepare("UPDATE users SET imagen=NULL WHERE id=?");
-        $stmt->bind_param("i", $user_id);
-        $stmt->execute();
-        
+        // Eliminar imagen de la base de datos
+        $stmt = $conn->prepare("UPDATE users SET imagen=NULL WHERE email=?"); // Cambié a email en vez de id, si no estás usando id
+        $stmt->bind_param("s", $email); // Cambié a email para ser consistente con el resto del código
+        if ($stmt->execute()) {
+            echo "Imagen eliminada de la base de datos."; // Verifica si se actualiza la base de datos
+        } else {
+            echo "Error al eliminar imagen de la base de datos."; // Si hay un error al eliminar
+        }
+        $stmt->close();
+
         // Actualizar la variable de imagen para reflejar el cambio
         $imagen = null;
     }
@@ -104,7 +132,8 @@ if (isset($_POST['action']) && $_POST['action'] == 'update_profile') {
         $error_msg = "Error al actualizar el perfil.";
     }
 }
-$stmt->close();
+
+// Cerrar la conexión a la base de datos
 $conn->close();
 ?>
 
@@ -161,9 +190,9 @@ $conn->close();
                 <?php endif; ?>
 
                 <div class="profile-sidebar14">
-                    <img class="profile-image14" src="<?php echo $imagen ? 'uploads/' . htmlspecialchars($imagen) : 'https://cdn-icons-png.freepik.com/512/10593/10593499.png'; ?>" alt="Profile Image">
-                    <h3 class="profile-name14"><?php echo htmlspecialchars($username); ?></h3>
-                    <p class="profile-title14"><?php echo htmlspecialchars($tipo_usuario ?? 'Usuario'); ?></p>
+                <img class="profile-image14" src="<?php echo $imagen ? 'uploads/' . htmlspecialchars($imagen) : 'https://cdn-icons-png.freepik.com/512/10593/10593499.png'; ?>" alt="Profile Image">
+                <h3 class="profile-name14"><?php echo htmlspecialchars($username); ?></h3>
+                    <p class="profile-title14"><?php echo htmlspecialchars($rol_nombre ?? 'Usuario'); ?></p>
                     
                     <div class="profile-stats14">
                         <div class="stat-item14">
@@ -180,7 +209,7 @@ $conn->close();
                     <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST" enctype="multipart/form-data">
                         <input type="hidden" name="action" value="update_image">
                         <div class="file-input-container">
-                            <input type="file" name="imagen" id="file-input" class="file-input" onchange="this.form.submit()">
+                            <input type="file" name="imagen" accept="image/*" id="file-input" class="file-input" onchange="this.form.submit()">
                             <button type="button" class="btn-primary" onclick="document.getElementById('file-input').click()">Cambiar foto</button>
                         </div>
                     </form>
@@ -211,16 +240,35 @@ $conn->close();
 
                         <div class="form-group14">
                             <label class="form-label14">Contraseña</label>
-                            <input type="password" class="form-input14" name="password" placeholder="Dejar en blanco para no cambiar">
-                        </div>
-                        
+                            <div class="password-container" style="position: relative;">
+                                <input type="password" id="password" class="form-input14" name="password" placeholder="Dejar en blanco para no cambiar" style="padding-right: 40px;">
+                                <i id="toggle-icon" class="fa-regular fa-eye" onclick="togglePasswordVisibility()" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer; color: #555;"></i>
+                            </div>
+                        </div> 
                         <button type="submit" class="upgrade-btn14">Guardar Cambios</button>
+
                     </form>
                 </div>
             </div>
         </div>
     </div>
 
+    <script>
+        function togglePasswordVisibility() {
+            const passwordField = document.getElementById("password");
+            const toggleIcon = document.getElementById("toggle-icon");
+
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+                toggleIcon.classList.remove("fa-eye");
+                toggleIcon.classList.add("fa-eye-slash");
+            } else {
+                passwordField.type = "password";
+                toggleIcon.classList.remove("fa-eye-slash");
+                toggleIcon.classList.add("fa-eye");
+            }
+        }
+    </script>
     <script>
         // Toggle menu para móvil
         document.getElementById('menuToggle14').addEventListener('click', function() {
