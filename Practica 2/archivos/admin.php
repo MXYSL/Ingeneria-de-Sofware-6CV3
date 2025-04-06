@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once 'conexion.php';
-
+ 
 if (!isset($_SESSION['user_id'])) {
     header("Location: index.html");
     exit();
@@ -194,6 +194,7 @@ $tema_preferido = $_SESSION['tema'] ?? 'sistema';
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Panel de Administración</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">

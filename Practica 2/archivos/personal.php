@@ -89,7 +89,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'update_profile') {
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <link rel="icon" href="../img/icono.png" type="image/x-icon">
+    <link rel="icon" href="img/icono.png" type="image/x-icon">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" />
@@ -124,7 +124,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'update_profile') {
                         <i id="sunIcon14" class="fa-regular fa-sun" fill="none" stroke="currentColor" stroke-width="2" style="display: none;" stroke-linecap="round" stroke-linejoin="round"></i>
                         <i id="moonIcon14" class="fa-regular fa-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></i>
                     </button>
-                    <img id= "icono" class="user-avatar14" src="../img/icono.png" alt="StoryVerse">
+                    <img id= "icono" class="user-avatar14" src="img/icono.png" alt="StoryVerse">
                 </div>
             </div>
 
@@ -218,12 +218,12 @@ if (isset($_POST['action']) && $_POST['action'] == 'update_profile') {
                 htmlElement.removeAttribute('data-theme');
                 moonIcon.style.display = 'block';
                 sunIcon.style.display = 'none';
-                themeicono.src = "../img/icono.png"; // Cambiar logo a oscuro
+                themeicono.src = "img/icono.png"; // Cambiar logo a oscuro
             } else {
                 htmlElement.setAttribute('data-theme', 'dark');
                 moonIcon.style.display = 'none';
                 sunIcon.style.display = 'block';
-                themeicono.src = "../img/iconoc.png"; // Cambiar logo a claro
+                themeicono.src = "img/iconoc.png"; // Cambiar logo a claro
             }
         });
 

@@ -33,7 +33,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'search') {
                     'title' => $book['title'],
                     'author' => isset($book['author_name']) ? implode(', ', $book['author_name']) : 'Desconocido',
                     'year' => $book['first_publish_year'] ?? 'Desconocido',
-                    'cover' => isset($book['cover_i']) ? "https://covers.openlibrary.org/b/id/{$book['cover_i']}-M.jpg" : '../img/default-cover.png'
+                    'cover' => isset($book['cover_i']) ? "https://covers.openlibrary.org/b/id/{$book['cover_i']}-M.jpg" : 'img/default-cover.png'
                 ];
             }
         }
@@ -53,7 +53,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'search') {
                 $movies[] = [
                     'title' => $movie['title'],
                     'year' => isset($movie['release_date']) ? explode('-', $movie['release_date'])[0] : 'Desconocido',
-                    'poster' => isset($movie['poster_path']) ? "https://image.tmdb.org/t/p/w500{$movie['poster_path']}" : '../img/default-movie.png'
+                    'poster' => isset($movie['poster_path']) ? "https://image.tmdb.org/t/p/w500{$movie['poster_path']}" : 'img/default-cover.png'
                 ];
             }
         }
@@ -92,7 +92,7 @@ function fetchMovies($type = 'popular') {
         foreach ($data['results'] as $movie) {
             $movies[] = [
                 'title' => $movie['title'],
-                'poster' => isset($movie['poster_path']) ? "https://image.tmdb.org/t/p/w500" . $movie['poster_path'] : "../img/default-movie.png"
+                'poster' => isset($movie['poster_path']) ? "https://image.tmdb.org/t/p/w500" . $movie['poster_path'] : "img/default-cover.png"
             ];
         }
     }
@@ -127,7 +127,7 @@ $categories = [
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Biblioteca Digital - StoryVerse</title>
-    <link rel="icon" href="../img/icono.png" type="image/x-icon">
+    <link rel="icon" href="img/icono.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" />
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Playfair+Display:wght@500&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
@@ -136,11 +136,11 @@ $categories = [
 <body>
     <header class="header9">
         <div class="logo9">
-            <img id="icono" src="../img/icono.png" alt="StoryVerse">
+            <img id="icono" src="img/icono.png" alt="StoryVerse">
         </div>
         <div class="nav-links9">
             <button id="themeToggle10" class="theme-button10">
-                <img id="themeIcon10" src="../img/claro.png" alt="Modo Claro">
+                <img id="themeIcon10" src="img/claro.png" alt="Modo Claro">
             </button>
         </div>
         <nav class="nav9">
@@ -179,9 +179,9 @@ $categories = [
                                 $book = $books[$i];
                                 if (isset($book['title'])) {
                                     echo '<div class="content-item-horizontal">';
-                                    echo '<img src="' . (isset($book['cover_i']) ? "https://covers.openlibrary.org/b/id/" . $book['cover_i'] . "-M.jpg" : "../img/default-cover.png") . '" alt="Portada del libro">';
+                                    echo '<img src="' . (isset($book['cover_i']) ? "https://covers.openlibrary.org/b/id/" . $book['cover_i'] . "-M.jpg" : "img/default-cover.png") . '" alt="Portada del libro">';
                                     echo '<div class="buttons-overlay">';
-                                    echo '<button class="favorite-button" onclick="addToFavorites(\'book\', \'' . htmlspecialchars($book['title']) . '\', \'' . (isset($book['cover_i']) ? "https://covers.openlibrary.org/b/id/" . $book['cover_i'] . "-M.jpg" : "../img/default-cover.png") . '\', \'' . (isset($book['author_name']) ? htmlspecialchars(implode(', ', $book['author_name'])) : 'Desconocido') . '\', \'' . (isset($book['first_publish_year']) ? $book['first_publish_year'] : 'Desconocido') . '\')">Favoritos</button>';
+                                    echo '<button class="favorite-button" onclick="addToFavorites(\'book\', \'' . htmlspecialchars($book['title']) . '\', \'' . (isset($book['cover_i']) ? "https://covers.openlibrary.org/b/id/" . $book['cover_i'] . "-M.jpg" : "img/default-cover.png") . '\', \'' . (isset($book['author_name']) ? htmlspecialchars(implode(', ', $book['author_name'])) : 'Desconocido') . '\', \'' . (isset($book['first_publish_year']) ? $book['first_publish_year'] : 'Desconocido') . '\')">Favoritos</button>';
                                     echo '<button class="preview-button" onclick="previewItem(\'book\', \'' . htmlspecialchars($book['title']) . '\')">Vista previa</button>';
                                     echo '</div>';
                                     echo '<p>' . htmlspecialchars($book['title']) . '</p>';
@@ -263,20 +263,20 @@ $categories = [
 
             if (currentTheme === "dark") {
                 body.classList.add("dark-mode10");
-                themeIcon.src = "../img/oscuro.png"; // Cambiar ícono al modo oscuro
-                themeicono.src = "../img/iconoc.png"; // Cambiar logo al modo oscuro
+                themeIcon.src = "img/oscuro.png"; // Cambiar ícono al modo oscuro
+                themeicono.src = "img/iconoc.png"; // Cambiar logo al modo oscuro
             }
 
             themeToggle.addEventListener("click", function () {
                 if (body.classList.contains("dark-mode10")) {
                     body.classList.remove("dark-mode10");
-                    themeIcon.src = "../img/claro.png"; // Cambiar ícono al modo claro
-                    themeicono.src = "../img/icono.png"; // Cambiar logo al modo claro
+                    themeIcon.src = "img/claro.png"; // Cambiar ícono al modo claro
+                    themeicono.src = "img/icono.png"; // Cambiar logo al modo claro
                     localStorage.setItem("theme10", "light");
                 } else {
                     body.classList.add("dark-mode10");
-                    themeIcon.src = "../img/oscuro.png"; // Cambiar ícono al modo oscuro
-                    themeicono.src = "../img/iconoc.png"; // Cambiar logo al modo oscuro
+                    themeIcon.src = "img/oscuro.png"; // Cambiar ícono al modo oscuro
+                    themeicono.src = "img/iconoc.png"; // Cambiar logo al modo oscuro
                     localStorage.setItem("theme10", "dark");
                 }
             });

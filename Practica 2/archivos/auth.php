@@ -1,9 +1,9 @@
 <?php
-require '../vendor/autoload.php';
+require 'vendor/autoload.php';
 
 use Facebook\Facebook;
 use Google\Client;
-
+ 
 session_start();
 
 // Incluir archivo de conexión
@@ -211,7 +211,7 @@ function autenticarConGoogle() {
 // Función para cerrar sesión
 function cerrarSesion() {
     session_destroy();
-    header("Location: ../index.html");
+    header("Location: index.html");
     exit();
 }
 
@@ -234,7 +234,7 @@ if (isset($_GET['provider'])) {
             autenticarConGoogle();
             break;
         default:
-            header("Location: ../index.html");
+            header("Location: index.html");
             exit();
     }
 }
@@ -285,7 +285,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 // Protección de acceso (redirigir si no hay sesión)
 if (!isset($_GET['provider']) && !isset($_GET['action']) && !isset($_POST['action']) && !isset($_SESSION['user_id'])) {
-    header("Location: ../index.html");
+    header("Location: index.html");
     exit();
 }
 
