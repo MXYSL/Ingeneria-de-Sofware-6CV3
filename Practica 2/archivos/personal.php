@@ -30,9 +30,6 @@ if ($result->num_rows === 1) {
     exit();
 }
 
-$stmt->close();
-$conn->close();
-
 // Opcional: Convertir ID de rol a nombre
 $roles = [
     1 => "Administrador",
@@ -107,6 +104,8 @@ if (isset($_POST['action']) && $_POST['action'] == 'update_profile') {
         $error_msg = "Error al actualizar el perfil.";
     }
 }
+$stmt->close();
+$conn->close();
 ?>
 
 <!DOCTYPE html>
