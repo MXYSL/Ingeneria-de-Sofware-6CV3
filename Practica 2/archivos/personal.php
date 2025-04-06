@@ -1,21 +1,44 @@
 <?php
 session_start();
-include 'conexion.php';
 
+// Verificar que el usuario esté autenticado
 if (!isset($_SESSION['user_id'])) {
     header("Location: index.html");
     exit();
 }
 
-$user_id = $_SESSION['user_id'];
+require_once 'conexion.php'; // Incluye la conexión a la base de datos
 
-// Conexión a la base de datos para obtener datos del usuario
-$stmt = $conn->prepare("SELECT username, email, imagen, role_id FROM users WHERE id=?");
-$stmt->bind_param("i", $user_id);
+$email = $_SESSION['user_id']; // Email como identificador
+$username = $_SESSION['username'];
+$role_id = $_SESSION['role_id'];
+
+// Obtener datos completos del usuario
+$stmt = $conn->prepare("SELECT username, email, imagen, role_id FROM users WHERE email = ?");
+$stmt->bind_param("s", $email);
 $stmt->execute();
-$stmt->bind_result($username, $email, $imagen, $role_id);
-$stmt->fetch();
+$result = $stmt->get_result();
+
+if ($result->num_rows === 1) {
+    $user = $result->fetch_assoc();
+    $username = $user['username'];
+    $email = $user['email'];
+    $imagen = $user['imagen'];
+    $role_id = $user['role_id'];
+} else {
+    echo "Error: usuario no encontrado.";
+    exit();
+}
+
 $stmt->close();
+$conn->close();
+
+// Opcional: Convertir ID de rol a nombre
+$roles = [
+    1 => "Administrador",
+    2 => "Usuario"
+];
+$rol_nombre = $roles[$role_id] ?? "Desconocido";
 
 // Procesar actualización de imagen
 if (isset($_POST['action']) && $_POST['action'] == 'update_image' && isset($_FILES['imagen'])) {
